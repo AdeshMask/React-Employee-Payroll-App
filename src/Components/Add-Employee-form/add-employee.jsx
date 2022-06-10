@@ -1,10 +1,11 @@
 import React from 'react'
-import './add.employee.css'
+import './add-employee.css'
 import logo from './logo.png'
 import profile3 from './Ellipse -3.png'
 import profile1 from './Ellipse -1.png'
 import profile7 from './Ellipse -7.png'
 import profile8 from './Ellipse -8.png'
+import { Link } from 'react-router-dom';
 // import profile5 from './Ellipse -5.png'
 // import profile6 from './Ellipse -6.png'
 
@@ -23,6 +24,7 @@ function Add() {
             <div class="form-content">
             <form class="form" action="#" onreset="resetForm()"
                 onsubmit="save()">
+                    
                 <div class="row-content">
                     <label for="name" class="label text">Name</label>
                     <input type="text" class="input" id="name" name="name"
@@ -165,8 +167,8 @@ function Add() {
                         placeholder=""></textarea>
                 </div>
                 <div class="buttonParent">
-                    <a href="home.html" class="resetButton
-                        button cancelButton">Cancel</a>
+                    <Link to="/" class="resetButton
+                        button cancelButton">Cancel</Link>
                     <div class="submit-reset">
                         <button class="button submitButton" id="submitButton"
                             type="submit">Submit</button>

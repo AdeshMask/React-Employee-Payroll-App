@@ -1,121 +1,121 @@
 body {
     margin: 0;
     height: 100%;
-}
-
-/* UC1 */
-
-.header {
+  }
+  
+  .header {
     padding: 15px 0;
     background-color: #fff;
-}
-
-.header-content {
+  }
+  
+  .header-content {
     display: flex;
     flex-direction: row;
     align-items: center;
     border: 0px solid green;
-}
-
-.logo-content {
+  }
+  
+  .logo-content {
     display: flex;
     flex-direction: row;
     align-items: center;
     border: 0px solid green;
     width: 80%;
-}
-
-.logo-content-img {
+  }
+  
+  .logo-content-img {
     border: solid 0px #42515f;
-}
-
-.emp-text {
+    max-width: 20px;
+    max-height: 20px;
+  }
+  
+  .emp-text {
     font: normal normal bold 20px/25px Montserrat;
     font-family: "Montserrat", sans-serif;
     letter-spacing: 0px;
     color: #82a70c;
     text-transform: capitalize;
-}
-
-.emp-payroll {
+  }
+  
+  .emp-payroll {
     color: #42515f;
-}
-
-* {
+  }
+  
+  * {
     box-sizing: border-box;
-}
-
-/* UC2 */
-
-.form-content {
+  }
+  
+  .form-content {
     min-height: calc(100% - 80px);
     background-color: #f7f7f7;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 0px solid green;
-}
-
-.form {
+  
+  }
+  
+  .form {
     width: 65%;
     padding: 44px 60px;
     background: #fff 0% 0% no-repeat padding-box;
     border: 1px solid #f5f5f5;
     border-radius: 8px;
     opacity: 1;
-}
-
-.row-content {
+    text-align: left;
+  }
+  
+  .row-content {
     display: flex;
     flex-direction: row;
     margin-bottom: 10px;
     align-items: center;
     border: 0px solid green;
-}
-
-.label {
+  }
+  
+  .label {
     min-width: 140px;
-}
-
-label {
+  }
+  
+  label {
     padding: 12px 12px 12px 0;
     display: inline-block;
-}
-
-.text {
+  }
+  
+  .text {
     font-size: 16px;
     color: #42515f;
     opacity: 1;
     font-family: Roboto;
-}
-
-.input {
+  }
+  
+  .input {
     width: 100%;
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: vertical;
-}
-
-.profile-radio-content {
+  }
+  
+  .profile-radio-content {
     display: flex;
     flex: 0 0 2vw;
     flex-direction: row;
-}
-
-.profile-radio-content>label {
+  }
+  
+  .profile-radio-content > label {
     display: flex;
     flex-direction: row;
     align-items: center;
-}
-
-.profile {
+  }
+  
+  .profile {
     width: 40px;
     border-radius: 50%;
     margin-left: 12px;
-}
-
-select {
+  }
+  
+  select {
     padding: 12px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -124,16 +124,16 @@ select {
     letter-spacing: 0px;
     color: #42515f;
     background-color: transparent;
-}
-
-.buttonParent {
+  }
+  
+  .buttonParent {
     display: flex;
     margin-bottom: 10px;
     justify-content: space-between;
     margin-top: 20px;
-}
-
-.button {
+  }
+  
+  .button {
     font-size: 20px;
     font-family: Roboto;
     letter-spacing: 0px;
@@ -146,61 +146,64 @@ select {
     padding: 7px 7px;
     border: 1px solid #707070;
     cursor: pointer;
-}
-
-.submitButton {
+  }
+  
+  .submitButton {
     border: none;
     background-color: #f5f5f5;
     margin-right: 30px;
-}
-
-.cancelButton {
+  }
+  
+  .cancelButton {
     text-decoration: none;
     text-align: center;
-}
-
-error-output {
+  }
+  
+  error-output {
     font-size: 18px;
     color: red;
     margin-left: 10px;
-}
-
-@media only screen and (max-width: 960px) {
+  }
+  
+  @media only screen and (max-width: 960px) {
     .cancelButton {
-        margin-left: 0px;
+      margin-left: 0px;
     }
     .form {
-        width: 85%;
-        padding: 44px 20px;
+      width: 85%;
+      padding: 44px 20px;
+      text-align: left;
+      justify-content: space-between;
     }
-}
-
-@media only screen and (max-width: 600px) {
+  }
+  
+  @media only screen and (max-width: 600px) {
     .form {
-        margin-top: 10px;
+      margin-top: 10px;
+      text-align: left;
     }
     .row {
-        flex-direction: column;
+      flex-direction: column;
     }
     .uploadButton {
-        justify-content: flex-start;
+      justify-content: flex-start;
     }
     .profile-radio-button {
-        flex-flow: wrap;
+      flex-flow: wrap;
     }
     .submit-reset {
-        width: 100%;
-        display: flex;
-        flex-grow: 1;
-        flex-direction: row-reverse;
-        justify-content: space-between;
-        margin-bottom: 20px;
+      width: 100%;
+      display: flex;
+      flex-grow: 1;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      margin-bottom: 20px;
     }
     .submitButton {
-        margin: 0;
+      margin: 0;
     }
     .buttonParent {
-        flex-direction: column-reverse;
-        align-items: flex-start;
+      flex-direction: column-reverse;
+      align-items: flex-start;
     }
-}
+  }

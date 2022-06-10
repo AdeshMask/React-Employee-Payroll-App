@@ -4,6 +4,7 @@ import logo from './logo.png';
 import icons1 from './add-24px.svg'
 import icons2 from './delete-black-18dp.svg'
 import icons3 from './create-black-18dp.svg'
+import { Link } from 'react-router-dom';
 
 function Home() {
     return (
@@ -22,8 +23,8 @@ function Home() {
 			<div class="emp-detail-text">
 				Employee Details<div class="emp-count">10</div>
 			</div>
-			<a href="../pages/EmpPayroll_form.html" class="add-button">
-			<img src={icons1} alt="" /> Add User</a>
+			<a><Link to="/add" class="add-button">
+			<img src={icons1} alt="" /> Add User</Link></a>
 		</div>
 
 		<div class="table-main">
