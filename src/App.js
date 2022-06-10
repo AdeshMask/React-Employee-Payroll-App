@@ -1,23 +1,17 @@
-import logo from './logo.svg';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import './App.css';
+import Home from './Components/payroll-form/payroll-form'
+import Add from './Components/Add-Employee-form/add-employee'
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Welcome to Employee Payroll App
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+      <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/add" element={<Add />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
