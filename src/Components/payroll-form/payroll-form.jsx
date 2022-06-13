@@ -1,23 +1,12 @@
 import React from 'react'
 import './payroll-form.css';
-import logo from './logo.png';
 import icons1 from './add-24px.svg'
-import icons2 from './delete-black-18dp.svg'
-import icons3 from './create-black-18dp.svg'
 import { Link } from 'react-router-dom';
 
 function Home() {
     return (
         <div>
-            <header class="header-content header">
-                <div class="logo-content">
-                    <img src={logo} alt="logo"/>
-                    <div>
-                        <span class="emp-text">EMPLOYEE</span><br/>
-                        <span class="emp-text emp-payroll">PAYROLL</span>
-                    </div>
-                </div>
-            </header>
+           
             <div class="main-content">
 		<div class="header-content">
 			<div class="emp-detail-text">
@@ -38,7 +27,7 @@ function Home() {
 					<th>Start Date</th>
 					<th>Actions</th>
 				</tr>
-				<tr>
+				{/* <tr>
 					<td><img class="profile" alt="" src="../assests/profile-images/Ellipse -9.png"/></td>
 					<td>Adesh</td>
 					<td>Male</td>
@@ -52,7 +41,7 @@ function Home() {
                     <img id="1" onclick="update(this)"
                         src={icons3} alt="edit"/>
 					</td> 
-				</tr>
+				</tr> */}
 			</table>
             <script defer src="../js/home.js"></script>
         <script defer src="../js/utility.js"></script>
