@@ -12,6 +12,7 @@ const Add = (props) => {
 
     const [formValue, setForm] = useState({
         department: [],
+        name: '',
         gender: '',
         salary: '',
         day: '',
@@ -19,47 +20,22 @@ const Add = (props) => {
         year: '',
         startDate: '',
         notes: '',
-        id: '',
         profilePic: '',
         isUpdate: false,
     });
+
+    const onCheckChange = (name) => {
+        let index = formValue.department.indexOf(name);
+        let checkArray = [...formValue.department];
+        if (index > -1) checkArray.splice(index, 1);
+        else checkArray.push(name);
+        setForm({ ...formValue, department: checkArray });
+    };
 
     const onNameChange = (event) => {
         setForm({ ...formValue, [event.target.name]: event.target.value });
         console.log('value is', event.target.value);
     }
-
-    // const onCheckChange = (name) => {
-    //     let index = formValue.departmentValue.indexOf(name);
-    //     let checkArray = [...formValue.departmentValue];
-    //     if (index > -1)
-    //         checkArray.splice(index, 1);
-    //     else
-    //         checkArray.push(name);
-    //         setForm({ ...formValue, departmentValue: checkArray });
-    // }
-
-    // const check = (name) => {
-    //     return formValue.departmentValue && formValue.departmentValue.includes(name)
-    // }
-
-    const onCheckChange = (name) => {
-        let index = formValue.department.indexOf(name);
-
-        let checkArray = [...formValue.department];
-
-        if (index > -1) checkArray.splice(index, 1);
-        else checkArray.push(name);
-
-        setForm({ ...formValue, department: checkArray });
-    };
-
-    const check = (name) => {
-        return (
-            formValue.department &&
-            formValue.department.includes(name)
-        );
-    };
 
     const submit = (event) => {
         event.preventDefault();
@@ -75,24 +51,36 @@ const Add = (props) => {
         };
         localStorage.setItem('EmployeeList', JSON.stringify(employeeObject));
         console.log(employeeObject);
+        alert("Employee Added");
     }
-    // alert("Employee Added");
+
+    const onReset = (e) => {
+        setForm({
+            name: "",
+            profilePic: "",
+            gender: "",
+            department: [],
+            salary: "",
+            startDate: "",
+            notes: ""
+        });
+    };
     /*===============================================================================*/ 
 
     return (
         <div>     
             <div className="form-content">
-            <form className="form" action="#" onreset="resetForm()"
-                onsubmit="save()">
+            <form className="form" action="#" onReset="resetForm()"
+                onSubmit="save()">
                     
                 <div className="row-content">
-                    <label for="name" className="label text">Name</label>
+                    <label htmlFor="name" className="label text">Name</label>
                     <input type="text" className="input" id="name" name="name"
-                       value={formValue.name} placeholder="Your name.." Required onChange={onNameChange} />
-                    <error-output className="text-error" for="name"></error-output>
+                       value={formValue.name} placeholder="Your name.." required onChange={onNameChange} />
+                    <error-output className="text-error" htmlFor="name"></error-output>
                 </div>
                 <div className="row-content">
-                        <label className="label text" for="profilePic">Profile image</label>
+                        <label className="label text" htmlFor="profilePic">Profile image</label>
                         <div className="profile-radio-content">
                             <label>
                                 <input type="radio" id="profile1" name="profilePic"
@@ -128,30 +116,22 @@ const Add = (props) => {
                     <div>
                             <input type="radio" id="male" name="gender"
                                 value="male" onChange={onNameChange} />
-                            <label for="male" className="text">Male</label>
+                            <label htmlFor="male" className="text">Male</label>
                             <input type="radio" id="female" name="gender"
                                 value="female" onChange={onNameChange} />
-                            <label for="female" className="text">Female</label>
+                            <label htmlFor="female" className="text">Female</label>
                         </div>
                 </div>
                 <div className="row-content">
-                        <label className="row-content" for="department">
+                        <label className="label text" htmlFor="department">
                             Department
                         </label>
                         <div className="label-dep">
                             {departments.map((item) => (
                                 <span key={item}>
-                                    <input
-                                        className="checkbox"
-                                        type="checkbox"
-                                        onChange={() => onCheckChange(item)}
-                                        name={item}
-                                        checked={check(item)}
-                                        value={item}
-                                    />
-                                    <label className="text" htmlFor={item}>
-                                        {item}
-                                    </label>
+                                    <input className="checkbox" type="checkbox" onChange={() => onCheckChange(item)}
+                                        value={item} />
+                                    <label className="text" htmlFor={item}> {item} </label>
                                 </span>
                             ))}
                         </div>
@@ -161,13 +141,14 @@ const Add = (props) => {
                     </label>
                     <input type="range" className="input" name="salary" id="salary"
                         min="300000" max="500000" step="100" value={formValue.salary} onChange={onNameChange}/>
-                    <output className="salary-output text" for="salary">400000</output>
+                    <output className="salary-output text" htmlFor="salary">{formValue.salary}</output>
                 </div>
                 <div className="row-content">
-                    <label className="label text" for="startDate">Start Date</label>
+                    <label className="label text" htmlFor="startDate">Start Date</label>
                     <div>
                         <select value={formValue.day} onChange={onNameChange} id="day" name="day">
-                            <option value="" disabled selected>Day</option>
+                            
+                            <option value="0">--Select--</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -201,7 +182,8 @@ const Add = (props) => {
                             <option value="31">31</option>
                         </select>
                         <select value={formValue.month} onChange={onNameChange} name="month" id="month">
-                            <option value="" disabled selected>Month</option>
+                           
+                            <option value="0">--Select--</option>
                             <option value="Jan">January</option>
                             <option value="Feb">Febuary</option>
                             <option value="Mar">March</option>
@@ -216,7 +198,8 @@ const Add = (props) => {
                             <option value="Dec">December</option>
                         </select>
                         <select value={formValue.year} onChange={onNameChange} name="year" id="year">
-                            <option value="" disabled selected>Year</option>
+                            
+                            <option value="0">--Select--</option>
                             <option value="2020">2020</option>
                             <option value="2019">2019</option>
                             <option value="2018">2018</option>
@@ -226,7 +209,7 @@ const Add = (props) => {
                     </div>
                 </div>
                 <div className="row-content">
-                    <label for="notes" className="label text">Notes</label>
+                    <label htmlFor="notes" className="label text">Notes</label>
                     <textarea id="notes" className="input" name="notes"
                         value={formValue.notes} placeholder="" onChange={onNameChange}></textarea>
                 </div>
@@ -236,7 +219,7 @@ const Add = (props) => {
                     <div className="submit-reset">
                     <button className="button submitButton" id="submitButton" onClick={submit}
                                 type="submit">Submit</button>
-                        <button type="reset" className="resetButton button">Reset</button>
+                        <button type="reset" className="button resetButton" id="resetButton" onClick={onReset}>Reset</button>
                     </div>
                 </div>
             </form>
