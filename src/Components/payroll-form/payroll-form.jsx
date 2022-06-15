@@ -1,9 +1,32 @@
-import React from 'react'
+import React, { Component, useState } from "react";
 import './payroll-form.css';
 import icons1 from './add-24px.svg'
 import { Link } from 'react-router-dom';
+import Delete from '../../Components/payroll-form/delete-black-18dp.svg';
+import EmployeeService from '../../service/EmployeePayroll'
 
-function Home() {
+
+class Home extends Component {
+
+	constructor(props) {
+        super(props);
+
+        this.state = {
+            employee: [],
+        };
+    }
+
+	fetchData() {
+        EmployeeService.getAllEmployees().then((response) => {
+            this.setState({ employee: response.data.data });
+        });
+    }
+
+    componentDidMount() {
+        this.fetchData();
+    }
+
+	render() {
     return (
         <div>
            
@@ -27,29 +50,48 @@ function Home() {
 					<th>Start Date</th>
 					<th>Actions</th>
 				</tr>
-				{/* <tr>
-					<td><img class="profile" alt="" src="../assests/profile-images/Ellipse -9.png"/></td>
-					<td>Adesh</td>
-					<td>Male</td>
-					<td><div class='Dept-label'>Engineer</div></td>
-					<td>40000</td>
-					<td>15 Oct 2021</td>
-					<td>
-						<img id="1" onclick="remove(this)"
-                        src={icons2}
-                        alt="delete"/>
-                    <img id="1" onclick="update(this)"
-                        src={icons3} alt="edit"/>
-					</td> 
-				</tr> */}
+				<tbody>
+                                {this.state.employee.map((employee) => (
+                                    <tr key={employee.id}>
+                                        
+                                        <td><img src={employee.profilePic} alt="ProfilePic" srcset="" /></td>
+                                        <td>{employee.name}</td>
+                                        <td>{employee.gender}</td>
+                                        <td>
+                                            {employee.department.map(dep =>
+                                                <div className="dept-label" id="dept"> {dep} </div>)}
+                                        </td>
+										<td>{employee.salary}</td>
+										<td>{employee.startDate}</td>
+                                        <td>
+                                            <img
+                                                name={employee.id}
+                                                src={Delete}
+                                                alt="delete"
+                                                onClick={() =>
+                                                    this.deleteEmployee(employee.id)
+                                                }
+                                            />
+                                            <img
+                                                name={employee.id}
+                                                src="{edit1}"
+                                                alt="edit"
+                                                onClick={() =>
+                                                    this.updateEmployee(employee.id)
+                                                }
+                                            />
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
 			</table>
-            <script defer src="../js/home.js"></script>
-        <script defer src="../js/utility.js"></script>
+            
 		</div>
 	</div>
 
         </div>
     )
+}
 }
 
 export default Home;
