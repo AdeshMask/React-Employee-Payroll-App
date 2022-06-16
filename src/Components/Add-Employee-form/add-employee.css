@@ -63,6 +63,9 @@ body {
     border-radius: 8px;
     opacity: 1;
     text-align: left;
+    border-style: solid;
+    border-top: #42515f;
+    
   }
   
   .row-content {

@@ -88,28 +88,28 @@ function EmployeeForm() {
                         <div className="profile-radio-content">
                             <label>
                                 <input type="radio" id="profile1" name="profilePic"
-                                    value={profile3} onChange={onNameChange} />
+                                    value="../../assests/Ellipse -3.png" onChange={onNameChange} />
                                 <img className="profile" id="image1"
                                     src={profile3} />
                             </label>
                             <label>
                                 <input type="radio" id="profile2"
                                     name="profilePic"
-                                    value={profile1} onChange={onNameChange} />
+                                    value="../../assests/Ellipse -1.png" onChange={onNameChange} />
                                 <img className="profile" id="image2"
                                     src={profile1} />
                             </label>
                             <label>
                                 <input type="radio" id="profil3"
                                     name="profilePic"
-                                    value={profile7} onChange={onNameChange} />
+                                    value="../../assests/Ellipse -7.png" onChange={onNameChange} />
                                 <img className="profile" id="image3"
                                     src={profile7} />
                             </label>
                             <label>
                                 <input type="radio" id="profile4"
                                     name="profilePic"
-                                    value={profile8} onChange={onNameChange} />
+                                    value="../../assests/Ellipse -8.png" onChange={onNameChange} />
                                 <img className="profile" id="image4"
                                     src={profile8} />
                             </label>
