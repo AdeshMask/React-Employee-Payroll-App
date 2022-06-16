@@ -10,6 +10,15 @@ class EmployeePayroll {
       getAllEmployees() {
         return axios.get(`${this.baseUrl}/show`);
       }
+
+      updateEmployee(employeeId,data) {
+        return axios.put(`${this.baseUrl}/edit/${employeeId}`, data);
+      }
+
+      deleteEmployee(employeeId) {
+        return axios.delete(`${this.baseUrl}/remove/${employeeId}`);
+      }
+
 }
 
 
