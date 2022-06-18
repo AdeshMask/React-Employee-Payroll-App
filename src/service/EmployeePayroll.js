@@ -11,6 +11,10 @@ class EmployeePayroll {
         return axios.get(`${this.baseUrl}/show`);
       }
 
+      getEmployeeById(employeeId) {
+        return axios.get(`${this.baseUrl}/search/${employeeId}`);
+      }
+
       updateEmployee(employeeId,data) {
         return axios.put(`${this.baseUrl}/edit/${employeeId}`, data);
       }

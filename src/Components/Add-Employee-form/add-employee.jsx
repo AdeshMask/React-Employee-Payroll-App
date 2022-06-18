@@ -1,15 +1,17 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import './add-employee.css'
 import profile3 from '../../assests/Ellipse -3.png'
 import profile1 from '../../assests/Ellipse -1.png'
 import profile7 from '../../assests/Ellipse -7.png'
 import profile8 from '../../assests/Ellipse -8.png'
-import { Link } from 'react-router-dom';
-import EmployeePayroll from '../../service/EmployeePayroll'
+import { Link, useParams } from 'react-router-dom';
+import EmployeeService from '../../service/EmployeePayroll'
 
-function EmployeeForm() {
-    const allDepartment = ["HR", "Sales", "Finance", "Engineer", "Others"]
-    const [formValue, setForm] = useState({
+
+const EmployeeForm = (props) => {
+
+    let startValue = {
+        allDepartment: ["HR", "Sales", "Finance", "Engineer", "Others"],
         fullName: "",
         profilePic: "",
         gender: "",
@@ -18,62 +20,102 @@ function EmployeeForm() {
         startDate: "",
         notes: "",
         isUpdate: false,
-    });
+    }
 
+    const [formValue, setForm] = useState(startValue)
+    const params = useParams();
+
+    useEffect (() => {
+        console.log("OK")
+        if (params.id){
+            getEmployeeId(params.id)
+            console.log(params.id)
+        }
+    },[]);
+
+    const getEmployeeId = (id) => {
+        console.log("Data")
+        EmployeeService.getEmployeeById(id).then((data)=>{
+           let obj = data.data.data;
+           console.log(obj);
+           setData(obj);
+            });
+          };
+        
+
+          const setData = (obj) => {
+            let array=obj.startDate;
+            console.log(array);
+            console.log()
+             setForm({
+               ...formValue,
+               ...obj,
+               id: obj.empId,
+               name: obj.name,
+               department: obj.departments,
+               isUpdate: true,
+               day:array[0]+array[1],
+               month:array[3]+array[4]+array[5],
+               year:array[7]+array[8]+array[9]+array[10],
+               note: obj.note,
+             });
+           };
+    
 
     const onCheckChange = (name) => {
         let index = formValue.department.indexOf(name);
-
         let checkArray = [...formValue.department];
-
         if (index > -1) checkArray.splice(index, 1);
         else checkArray.push(name);
-
         setForm({ ...formValue, department: checkArray });
-
     };
+
     const onReset = () => {
         setForm({
-            name: "",
-            profilePic: "",
-            gender: "",
-            department: [],
-            salary: "",
-            startDate: "",
-            notes: ""
+            ...startValue, id: formValue.id, isUpdate: formValue.isUpdate 
         });
     };
-    const onSubmit = (event) => {
-        event.preventDefault();
 
+    const save = async (event) => {
+        event.preventDefault();
+        
         let employeeObject = {
+            id: formValue.id,
             name: formValue.name,
-            department: formValue.department,
+            departments: formValue.department,
             gender: formValue.gender,
             salary: formValue.salary,
             profilePic: formValue.profilePic,
             startDate: `${formValue.year}-${formValue.month}-${formValue.day}`,
             notes: formValue.notes
         };
-        EmployeePayroll.addEmployee(employeeObject);
-        
-        localStorage.setItem('EmployeeList', JSON.stringify(employeeObject));
-        console.log(employeeObject);
-        alert(`Employee ${formValue.name} has been added`)
-    }
 
+        if(formValue.isUpdate) {
+            EmployeeService.updateEmployee(params.id,employeeObject)
+            .then((data) => {
+                var value = window.confirm(data);
+                if(value === true){
+                    alert("update successfull!");
+                    this.props.history.push("");
+                  }else{
+                      window.location.reload();
+                  }
+                this.props.history.push({pathname: "/",})
+                alert("Data Updated")
+            });
+        }else
+        console.log("Data saved")
+    }
     const onNameChange = (event) => {
         setForm({ ...formValue, [event.target.name]: event.target.value });
         console.log('value for', event.target.name, event.target.value);
     }
 
+
     return (
-
         <div>
-
             <div className="form-content">
-                <form className="form" action="#" onReset="resetForm()"
-                    onSubmit="save()">
+                <form className="form" action="#" onSubmit={save}>
                     <div className="form-head">
                         Employee Payroll form
                     </div>
@@ -127,11 +169,11 @@ function EmployeeForm() {
                         </div>
                     </div>
                     <div className="row-content">
-                        <label className="label text" htmlFor="department">
+                        <label className="label text" htmlFor="departments">
                             Department
                         </label>
                         <div className="label-dep">
-                            {allDepartment.map((item) => (
+                            {formValue.allDepartment.map((item) => (
                                 <span key={item}>
                                     <input
                                         className="checkbox"
@@ -224,10 +266,10 @@ function EmployeeForm() {
                             value={formValue.notes} placeholder="" onChange={onNameChange}></textarea>
                     </div>
                     <div className="buttonParent">
-                        <Link to="/" className="resetButton
+                        <Link to="/home" className="resetButton
                         button cancelButton">Cancel</Link>
                         <div className="submit-reset">
-                            <button className="button submitButton" id="submitButton" onClick={onSubmit} type="submit">Submit</button>
+                            <button type="submit" className="button submitButton" id="submitButton">{formValue.isUpdate ? 'Update' : 'Submit'}</button>
                             <button type="reset" className="button resetButton" id="resetButton" onClick={onReset}>Reset</button>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
-import React, { Component, useState } from "react";
+import React, { Component} from "react";
 import './payroll-form.css';
 import icons1 from './add-24px.svg'
-import { Link } from 'react-router-dom';
+import { Link,withRouter  } from 'react-router-dom';
 import Delete from '../../Components/payroll-form/delete-black-18dp.svg';
 import Edit from '../../Components/payroll-form/create-black-18dp.svg';
 import profile3 from '../../assests/Ellipse -3.png'
@@ -19,26 +19,26 @@ class Home extends Component {
             employee: [],
         };
     }
-
 	fetchData() {
         EmployeeService.getAllEmployees().then((response) => {
             this.setState({ employee: response.data.data });
         });
     }
-
     componentDidMount() {
         this.fetchData();
+        console.log(this.props)
     }
+    
 
     deleteEmployee = (employeeId) => {
         let id = parseInt(employeeId)
         EmployeeService.deleteEmployee(id);
         window.location.reload();
     };
-
     updateEmployee = (employeeId) => {
-        this.history.push(`add-employee/${ employeeId}`)
+       this.props.history.push(`add-employee/${employeeId}`);
     };
+   
 	render() {
     return (
         <div>         
@@ -53,35 +53,38 @@ class Home extends Component {
 		<div className="table-main">
 			<table id="table-display" className="table">
 				<tr>
-					<th>Profile Pic</th>
+					<th>Profile</th>
 					<th>Name</th>
 					<th>Gender</th>
 					<th>Department</th>
 					<th>Salary</th>
 					<th>Start Date</th>
+                    <th>Notes</th>
 					<th>Actions</th>
 				</tr>
 				<tbody>
-                    {this.state.employee.map((employee) => (
-                        <tr key={employee.id}>                             
+                    {this.state.employee && this.state.employee.map((employees,index) => (
+                        <tr key={`${index}`}>                             
                             <td>
-                                <img src={ employee.profilePic=== "../../assests/Ellipse -3.png" ? profile3 :
-                                employee.profilePic=== "../../assests/Ellipse -1.png" ? profile1 :
-                                employee.profilePic=== "../../assests/Ellipse -7.png" ? profile7 : profile8 
+                                <img src={ employees.profilePic=== "../../assests/Ellipse -3.png" ? profile3 :
+                                employees.profilePic=== "../../assests/Ellipse -1.png" ? profile1 :
+                                employees.profilePic=== "../../assests/Ellipse -7.png" ? profile7 : profile8 
                                 } alt="ProfilePic" srcSet="" /></td>
-                            <td>{employee.name}</td>
-                            <td>{employee.gender}</td>
+                            <td>{employees.name}</td>
+                            <td>{employees.gender}</td>
                             <td>
-                            {employee.department.map(dep =>
+                            {employees.department.map(dep =>
                             <div className="dept-label" id="dept"> {dep} </div>)}
                             </td>
-							<td>{employee.salary}</td>
-							<td>{employee.startDate}</td>
+							<td>{employees.salary}</td>
+							<td>{employees.startDate}</td>
+                            <td>{employees.notes}</td>
                             <td>
                             <img src={Delete} alt="delete" onClick={() =>
-                                                    this.deleteEmployee(employee.id)}/>
+                                                    this.deleteEmployee(employees.id)}/>
+                            <Link to={`/add/${employees.id}`}>
                             <img src={Edit} alt="edit" onClick={() =>
-                                                    this.updateEmployee(employee.employeeId)} />
+                                                    this.updateEmployee(employees.id)} /></Link>
                             </td>
                         </tr>
                     ))}
@@ -92,5 +95,4 @@ class Home extends Component {
 </div>)
 }
 }
-
-export default Home;
+export default withRouter(Home);
