@@ -55,8 +55,8 @@ const EmployeeForm = (props) => {
                salary: obj.salary,
                isUpdate: true,
                gender:obj.gender,
-               day:array[5]+array[6],
-               month:array[7]+array[8]+array[9],
+               day:array[8]+array[9],
+               month:array[5]+array[6],
                year:array[0]+array[1]+array[2]+array[3],
                note: obj.note,
              });
